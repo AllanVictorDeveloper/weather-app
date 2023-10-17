@@ -2,7 +2,7 @@
   "name": "weather-app",
   "version": "0.0.0",
   "engines": {
-    "node": ">=19 <19"
+    "node": ">=18 <19"
   },
   "scripts": {
     "ng": "ng",
