@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { first, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ constructor(private http: HttpClient) { }
 getWeatherDatas(cityName: string): Observable<any>{
   return this.http
   .get<any>(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&mode=json&appid=${this.apiKey}`, {})
+  .pipe(first(), tap(res => console.log(res)))
 }
 
 

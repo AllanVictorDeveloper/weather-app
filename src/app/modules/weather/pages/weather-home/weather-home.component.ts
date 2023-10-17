@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WeatherService } from '../../services/weather.service';
 import { WeatherDatas } from 'src/app/models/interfaces/WeatherDatas';
-import { Subject, takeUntil } from 'rxjs';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -9,8 +8,8 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './weather-home.component.html',
   styleUrls: []
 })
-export class WeatherHomeComponent implements OnInit, OnDestroy {
-  private readonly destroy$: Subject<void> = new Subject();
+export class WeatherHomeComponent implements OnInit {
+
   initialCityName = 'Rio de Janeiro';
   weatherDatas!: WeatherDatas;
 
@@ -26,7 +25,7 @@ export class WeatherHomeComponent implements OnInit, OnDestroy {
 
 
   getWatherDatas(cityName: string): void{
-    this.weatherService.getWeatherDatas(cityName).pipe(takeUntil(this.destroy$)).subscribe({
+    this.weatherService.getWeatherDatas(cityName).subscribe({
      next: (response) => {
       response && (this.weatherDatas = response)
       console.log(this.weatherDatas);
@@ -45,9 +44,6 @@ export class WeatherHomeComponent implements OnInit, OnDestroy {
 
 
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+
 
 }
